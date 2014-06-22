@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>CodeBook</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>CodeBook</h1>
+
+<p>The data come from a subset of the the &ldquo;UCI HAR Dataset&rdquo;&ldquo;
+<a href="http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones">http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones</a></p>
+
+<p>There are 180 observations of 68 variables.<br/>
+The variables are the mean by subject and activity of variables representing mean and standard deviation of signals captured from 
+the accelerometer and gyroscope 3-axial of a Samsung S II and subsequent calculation.</p>
+
+<p>Variable can be group in:</p>
+
+<ul>
+<li><p>Descriptive<br/>
+    - <strong>subject</strong>: a number between 1 to 30 representing the volunteer in the experiment<br/>
+    - <strong>activity</strong>: WALKING,WALKING_UPSTAIRS,WALKING_DOWNSTAIRS,SITTING,STANDING,LAYING  </p></li>
+<li><p>Time domain signal (number betwen -1,+1 ) (start with &#39;t&#39;)<br/>
+    - <strong>tBodyAcc-XYZ</strong>: body acceleration signals<br/>
+    - <strong>tGravityAcc-XYZ</strong>: gravity acceleration signals<br/>
+    - <strong>tBodyAccJerk-XYZ</strong>: Jerk signals body linear acceleration<br/>
+    - <strong>tBodyGyro-XYZ</strong>: angular velocity<br/>
+    - <strong>tBodyGyroJerk-XYZ</strong>: Jerk signals angular velocity<br/>
+    - <strong>tBodyAccMag</strong>: magnitude of body acceleration signals<br/>
+    - <strong>tGravityAccMag</strong>: magnitude of gravity acceleration signals<br/>
+    - <strong>tBodyAccJerkMag</strong>: magnitude of Jerk signals body linear acceleration<br/>
+    - <strong>tBodyGyroMag</strong>: magnitude of angular velocity<br/>
+    - <strong>tBodyGyroJerkMag</strong>: magnitude of Jerk signals angular velocity  </p></li>
+<li><p>Frequency domain signal (number betwen -1,+1 ) (start with &#39;f&#39;)<br/>
+    - <strong>fBodyAcc-XYZ</strong>: body acceleration signals - Fast Fourier Transform (FFT)<br/>
+    - <strong>fBodyAccJerk-XYZ</strong>: Jerk signals body linear acceleration - Fast Fourier Transform (FFT)<br/>
+    - <strong>fBodyGyro-XYZ</strong>: angular velocity - Fast Fourier Transform (FFT)<br/>
+    - <strong>fBodyAccMag</strong>: magnitude of body acceleration signals - Fast Fourier Transform (FFT)<br/>
+    - <strong>fBodyAccJerkMag</strong>: magnitude of Jerk signals body linear acceleration  - Fast Fourier Transform (FFT)<br/>
+    - <strong>fBodyGyroMag</strong>: magnitude of angular velocity - Fast Fourier Transform (FFT)<br/>
+    - <strong>fBodyGyroJerkMag</strong>: magnitude of Jerk signals angular velocity - Fast Fourier Transform (FFT)   </p></li>
+</ul>
+
+<p>For each Time and Frequency domain signal variable exists the mean and standard deviation  </p>
+
+<p>Here the complete list of variables:</p>
+
+<ul>
+<li>&rdquo;.std&quot; = standard deviation<br/></li>
+<li>&ldquo;.mean&rdquo; = mean<br/></li>
+<li>&ldquo;.X&rdquo; or &ldquo;.Y&rdquo; or &ldquo;.Z&rdquo; = axis of the signal<br/></li>
+</ul>
+
+<p><strong>about standard deviation</strong></p>
+
+<p>tBodyAcc.std.X<br/>
+tBodyAcc.std.Y<br/>
+tBodyAcc.std.Z<br/>
+tGravityAcc.std.X<br/>
+tGravityAcc.std.Y<br/>
+tGravityAcc.std.Z<br/>
+tBodyAccJerk.std.X<br/>
+tBodyAccJerk.std.Y<br/>
+tBodyAccJerk.std.Z<br/>
+tBodyGyro.std.X<br/>
+tBodyGyro.std.Y<br/>
+tBodyGyro.std.Z<br/>
+tBodyGyroJerk.std.X<br/>
+tBodyGyroJerk.std.Y<br/>
+tBodyGyroJerk.std.Z<br/>
+tBodyAccMag.std<br/>
+tGravityAccMag.std<br/>
+tBodyAccJerkMag.std<br/>
+tBodyGyroMag.std<br/>
+tBodyGyroJerkMag.std<br/>
+fBodyAcc.std.X<br/>
+fBodyAcc.std.Y<br/>
+fBodyAcc.std.Z<br/>
+fBodyAccJerk.std.X<br/>
+fBodyAccJerk.std.Y<br/>
+fBodyAccJerk.std.Z<br/>
+fBodyGyro.std.X<br/>
+fBodyGyro.std.Y<br/>
+fBodyGyro.std.Z<br/>
+fBodyAccMag.std<br/>
+fBodyBodyAccJerkMag.std<br/>
+fBodyBodyGyroMag.std<br/>
+fBodyBodyGyroJerkMag.std   </p>
+
+<p><strong>about Mean</strong>  </p>
+
+<p>tBodyAcc.mean.X<br/>
+tBodyAcc.mean.Y<br/>
+tBodyAcc.mean.Z<br/>
+tGravityAcc.mean.X<br/>
+tGravityAcc.mean.Y<br/>
+tGravityAcc.mean.Z<br/>
+tBodyAccJerk.mean.X<br/>
+tBodyAccJerk.mean.Y<br/>
+tBodyAccJerk.mean.Z<br/>
+tBodyGyro.mean.X<br/>
+tBodyGyro.mean.Y<br/>
+tBodyGyro.mean.Z<br/>
+tBodyGyroJerk.mean.X<br/>
+tBodyGyroJerk.mean.Y<br/>
+tBodyGyroJerk.mean.Z<br/>
+tBodyAccMag.mean<br/>
+tGravityAccMag.mean<br/>
+tBodyAccJerkMag.mean<br/>
+tBodyGyroMag.mean<br/>
+tBodyGyroJerkMag.mean<br/>
+fBodyAcc.mean.X<br/>
+fBodyAcc.mean.Y<br/>
+fBodyAcc.mean.Z<br/>
+fBodyAccJerk.mean.X<br/>
+fBodyAccJerk.mean.Y<br/>
+fBodyAccJerk.mean.Z<br/>
+fBodyGyro.mean.X<br/>
+fBodyGyro.mean.Y<br/>
+fBodyGyro.mean.Z<br/>
+fBodyAccMag.mean<br/>
+fBodyBodyAccJerkMag.mean<br/>
+fBodyBodyGyroMag.mean<br/>
+fBodyBodyGyroJerkMag.mean   </p>
+
+</body>
+
+</html>
+

@@ -27,8 +27,12 @@ row.names(columnsName) <- NULL
 columnsName <- rbind(columnsName,data.frame(FeatureColumnNumber=562,FeatureName="subject")) #subject
 columnsName <- rbind(columnsName,data.frame(FeatureColumnNumber=563,FeatureName="activity")) #activity
 
-remove(featuresRaw)
+# now columnsName is a list with all the "good" column names for the tidyDataSet
+# - a good name for R, a readable name for who analyze the dataset
+# - the FeatureColumNumber has the number of the column of the initial raw dataset
 
+
+remove(featuresRaw)
 
 #merge the TEST set (column bind)
 
@@ -51,18 +55,18 @@ remove(featuresRaw)
 
 remove(testSet,testSubject,testActivity,trainSet,trainSubject,trainActivity)
 
-#subsetting columns with the variable "mean" and "Std" using the featureNumber
-# from the featureName list
 # merge train & test dataset using the "columnNumber" to subset the data.frame
+#subsetting columns with the variable "mean" and "Std" using the featureNumber
+# from the columnsName list
 
 tidyDatasetTemp <- merge(testSetMerged[,columnsName[,"FeatureColumnNumber"]],trainSetMerged[,columnsName[,"FeatureColumnNumber"]],all=TRUE)
+
 remove(testSetMerged,trainSetMerged)
 
 #rename the columns using a vector coming from the list columnsName["FeatureName"]
 setnames(tidyDatasetTemp,unlist(columnsName["FeatureName"],use.names = FALSE))
 
 #trasform to a factor type, so we can use the level function to transform activity code to "activity label"
-
 tidyDatasetTemp$activity <- as.factor(tidyDatasetTemp$activity)
 
 #rename activity using a vector created from the "activity_label.txt" file
@@ -70,10 +74,9 @@ levels(tidyDatasetTemp$activity) <- unlist(read.table("activity_labels.txt")[,2]
 
 # create the final tidydataset 
 # a data.table is used to allow to "group by"
-#.SD allow to retrieve all the columns where appy the mean function
-# by parameter is a vector with the fields "to group by"
-
-tidyDataset <- data.table(tidyDatasetTemp)[,lapply(.SD,mean),by=c("subject","activity")]
+#.SD allow to retrieve all the columns where apply the mean function
+# order by activity and subject
+tidyDataset <- data.table(tidyDatasetTemp)[,lapply(.SD,mean),by=c("activity","subject")][order(activity,subject)]
 
 remove(tidyDatasetTemp)
 

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Getting And Cleaning Data Course Project</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h2>Getting And Cleaning Data Course Project</h2>
+
+<p>This read me is about &ldquo;run_analysis.R&rdquo;, a script that process the &ldquo;UCI HAR Dataset&rdquo;
+Inside the script there is comment almost on each line of code to understand what&#39;s the purpose.</p>
+
+<p>here some general principle I follow:</p>
+
+<ul>
+<li>read carefully the readme.txt, features_info.txt to understand how the &ldquo;UCI HAR Dataset&rdquo; is structured </li>
+<li>prepare the data so I can use the most &ldquo;powerful&rdquo; function to trasform the data</li>
+<li>trasform the &ldquo;feature.txt&rdquo; file to be &ldquo;usable&rdquo; as columns variable name (name human readable and compliant with R)</li>
+<li>merge test and train data to their &ldquo;activities&rdquo; and &ldquo;subjects&rdquo; and only at the end create a unique dataset and rename the columns</li>
+<li>remove the &ldquo;intermediate&rdquo; objects free memory and have a &ldquo;clean&rdquo; enviroment</li>
+</ul>
+
+<p>the &ldquo;main&rdquo; steps within the script:</p>
+
+<ul>
+<li><p>prepare a list with all the names and &ldquo;position&rdquo; (column number) for the columns in the &ldquo;tidyDataSet&rdquo;: (columnsName)<br/>
+    - load the 561 names and &ldquo;column number&rdquo; from features.txt
+    - add 2 more rows for &ldquo;activity&rdquo; and &ldquo;subject&rdquo;
+    - remove &ldquo;()&rdquo; from the data and replace &ldquo;-&rdquo; with &ldquo;.&rdquo;
+    - filter the list retrieving only features with inside &ldquo;mean()&rdquo; and &ldquo;std()&rdquo; </p></li>
+<li><p>create a testDataSet merging: (testSetMerged)
+    - test data
+    - subject related to test data
+    - activity relate to test data</p></li>
+<li><p>create a trainDataSet merging: (trainSetMerged)
+    - train data
+    - subject related to train data
+    - activity relate to train data</p></li>
+<li><p>merge the test and train dataset subsetting the columns using the position stored in the columnsName list</p></li>
+<li><p>use a data.table object to group by activity and subject, calculating the mean using lapply
+    - (the .SD parameter (lapply) allow to retrieve all the column names</p></li>
+<li><p>write the file tidyDataSet data.table object to a txt file</p></li>
+</ul>
+
+</body>
+
+</html>
+
